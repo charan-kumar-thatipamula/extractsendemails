@@ -1,5 +1,7 @@
 package com.charan.communication;
 
+import com.charan.communication.factory.TriggerSendEmailsFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -17,7 +19,7 @@ public class ParellelProcessCSVsForEmail {
     public void triggerEmail() {
         ExecutorService executor = Executors.newFixedThreadPool(3);
         for (String csvFileName : csvFileNames) {
-            Runnable worker = new TriggerSendEmails();
+            Runnable worker = new TriggerSendEmails(); // TriggerSendEmailsFactory.getTriggerSendEmails();
             ((TriggerSendEmails) worker).setFilePath(csvFileName);
             System.out.println(Thread.currentThread().getName() + "; Starting worker for : " + csvFileName);
             executor.execute(worker);
@@ -27,6 +29,4 @@ public class ParellelProcessCSVsForEmail {
         }
         System.out.println("Finished all threads");
     }
-
-
 }

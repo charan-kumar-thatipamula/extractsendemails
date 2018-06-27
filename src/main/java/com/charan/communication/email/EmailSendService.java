@@ -31,13 +31,16 @@ public class EmailSendService implements Runnable{
         } else {
             host = "smtp.clinicalstudiesjournal.com";
         }
+//        host = "localhost";
+//        String port = "1025"; // "587"
+        String port = "587";
 //        String host = "smtp.gmail.com";
 //        String host = "smtp.clinicalstudiesjournal.com";
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.user", from);
         props.put("mail.smtp.password", pass);
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.port", port);
         props.put("mail.smtp.auth", "true");
 
         Session session = Session.getDefaultInstance(props);
@@ -59,11 +62,16 @@ public class EmailSendService implements Runnable{
             message.setSubject(subject);
 //            message.setText(body);
             message.setContent(body, "text/html; charset=utf-8");
+            message.setSentDate(new Date());
 
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
+            if (from.indexOf("gmail") != -1) { // || from.indexOf("clinicalstudiesjournal") != -1) {
+                return;
+            }
+
 
             // Copy message to "Sent Items" folder as read
 //            host = "imap.clinicalstudiesjournal.com";
@@ -74,11 +82,15 @@ public class EmailSendService implements Runnable{
                 host = "imap.clinicalstudiesjournal.com";
             }
             Store store = session.getStore("imap");
-            store.connect(host, from, pass);
+            if (from.indexOf("gmail") != -1) {
+                store.connect(host, 993, from, pass);
+            } else {
+                store.connect(host, from, pass);
+            }
 
             Folder[] f = store.getDefaultFolder().list();
-            for(Folder fd:f)
-                System.out.println(">> "+fd.getName());
+//            for(Folder fd:f)
+//                System.out.println(">> "+fd.getName());
 
             Folder folder = store.getFolder("Sent Items");
             folder.open(Folder.READ_WRITE);
