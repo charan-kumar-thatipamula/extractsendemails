@@ -30,12 +30,13 @@ public abstract class AbstractWebsiteHandler {
 		FileUility fileUility = new FileUility();
 //        String fName = "outputcsv" + new Date().getTime() + ".csv";
 		fileUility.setOutputFileName(getOutputFileName());
+		System.out.println("Done processing: " + getUrl());
 		fileUility.writeOutputFile(fData);
+		System.out.println("Extracted data to: " + getOutputFileName());
+		System.out.println("******************************************");
 	}
 
-	public String getUrl() {
-		return url;
-	}
+	public abstract String getUrl();
 
 	public void setUrl(String url) {
 		this.url = url;
@@ -50,11 +51,12 @@ public abstract class AbstractWebsiteHandler {
 	public abstract String getOutputFileName();
 
 	public void addEmailToQueue(String contents) {
-		GlobalContext gc = GlobalContext.getGlobalContext();
-		String[] row = contents.split(",");
-		GetEmailFromTemplate et = new GetEmailFromTemplate();
-		et.setTemplateFilePath(gc.getTemplatePathForUrl(url));
-		Email email =  et.extractEmail(row);
-		gc.addToQueue(url, email);
+//		GlobalContext gc = GlobalContext.getGlobalContext();
+//		String[] row = contents.split(",");
+//		GetEmailFromTemplate et = new GetEmailFromTemplate();
+//		et.setTemplateFilePath(gc.getTemplatePathForUrl(getUrl()));
+//		Email email =  et.extractEmail(row);
+//		gc.addToQueue(getUrl(), email);
+//		System.out.println("Added email: " + email.toString());
 	}
 }

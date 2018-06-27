@@ -1,16 +1,47 @@
 package com.charan;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import com.charan.communication.ParellelProcessCSVsForEmail;
 import com.charan.global.GlobalContext;
 import com.charan.global.UrlContext;
 import com.charan.util.creds.CredentialsUtil;
+import com.charan.util.input.ReadInput;
 import com.charan.websites.AbstractWebsiteHandler;
 import com.charan.websites.WebsiteHandlerFactory;
 
 public class TriggerApp {
-
-	private void process() throws Exception{
+	static GlobalContext globalContext = GlobalContext.getGlobalContext();
+	private void process() throws Exception {
+		if (notValid()) {
+			return;
+		}
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("What do you want to do? Enter your choice 1 or 2");
+		System.out.println("1. Extract CSV from urls");
+		System.out.println("2. Send emails from CSV");
+		System.out.println("Enter any other key to exit the application");
+		String line = scanner.nextLine();
+		if (line.equals("1")) {
+			processUrls();
+		} else if (line.equals("2")) {
+			processCSVs();
+		} else {
+			System.out.println("Exiting...");
+		}
+	}
+	private void processCSVs() throws Exception {
+//		globalContext.setTimeUnit(TimeUnit.SECONDS);
+		ParellelProcessCSVsForEmail parellelProcessCSVsForEmail = new ParellelProcessCSVsForEmail();
+		ReadInput readInput = new ReadInput();
+		readInput.runReadCSVinput();
+		Set<String> csvFilePaths = globalContext.getCSVFilePaths();
+		for (String csvFilePath : csvFilePaths) {
+			parellelProcessCSVsForEmail.addCSVFileJobs(csvFilePath);
+		}
+		parellelProcessCSVsForEmail.triggerEmail();
+	}
+	private void processUrls() throws Exception{
 		if (notValid()) {
 			return;
 		}
@@ -36,7 +67,7 @@ public class TriggerApp {
 			}
 			String[] inputContents = parseInput(input);
 			try {
-				urlContext.setUrlContext(inputContents);
+//				urlContext.setUrlContext(inputContents);
 				urls.add(inputContents[0]);
 			} catch (Exception e) {
 				System.err.println("Exception setting url context: " + e.getMessage());
@@ -68,14 +99,13 @@ public class TriggerApp {
 	}
 	public static void main(String[] args) {
 		try {
-			GlobalContext globalContext = GlobalContext.getGlobalContext();
 			CredentialsUtil credentialsUtil = globalContext.getCredentialsUtil();
 			credentialsUtil.setDefaultCreds();
 
 			TriggerApp triggerApp = new TriggerApp();
 			triggerApp.process();
 		} catch (Exception e) {
-
+			System.out.println("Exception: " + e.getMessage());
 		}
 	}
 }

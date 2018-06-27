@@ -1,6 +1,8 @@
 package com.charan.communication.email;
 
 import com.charan.communication.csv.HeaderIndex;
+import com.charan.global.CSVContext;
+import com.charan.global.GlobalContext;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,6 +13,8 @@ public class GetEmailFromTemplate {
     String author;
     String email;
     String templatePath;
+    GlobalContext globalContext = GlobalContext.getGlobalContext();
+    CSVContext csvContext;
 
     public GetEmailFromTemplate(String title, String author, String email) {
         this.title = title;
@@ -19,7 +23,7 @@ public class GetEmailFromTemplate {
     }
 
     public GetEmailFromTemplate() {
-        
+
     }
 
     public String getTitle() {
@@ -54,18 +58,30 @@ public class GetEmailFromTemplate {
         return templatePath;
     }
 
-    private Email process() {
+    public CSVContext getCsvContext() {
+        return csvContext;
+    }
+
+    public void setCsvContext(CSVContext csvContext) {
+        this.csvContext = csvContext;
+    }
+
+    public Email process() {
         String template = readTemplate();
         template = updateTemplate(template);
         Email email = new Email();
         email.setTo(new String[]{getEmail()});
-        email.setSubject("Share your work through JCRM"); // getTitle());
+        email.setSubject(generateSubject()); // getTitle());
         email.setBody(template);
-//            em.setFrom("editor.jcrm@clinicalstudiesjournal.com");
-//            em.setPwd("test123!@#");
-        email.setFrom("charant.lgp@gmail.com");
-        email.setPwd("baaaalaiah");
-        email.setTo(new String[]{"charant.me.csa@gmail.com"});
+        email.setFrom(csvContext.getEmail());
+        email.setPwd(globalContext.getCredentialsUtil().getPassword(email.getFrom()));
+//        email.setFrom(globalContext.getCredentialsUtil().getDefaultEmail());
+//        email.setPwd(globalContext.getCredentialsUtil().getDefaultPassword());
+//        email.setFrom("editor.jcrm@clinicalstudiesjournal.com");
+//        email.setPwd("test123!@#");
+//        email.setFrom("charant.lgp@gmail.com");
+//        email.setPwd("baaaalaiah");
+//        email.setTo(new String[]{"charant.me.csa@gmail.com"});
 
         return email;
     }
@@ -75,7 +91,9 @@ public class GetEmailFromTemplate {
         try{
 //            byte[] stream = Files.readAllBytes(Paths.get(templatePath));
 //            template = new String(stream);
-            List<String> allLines = Files.readAllLines(Paths.get(templatePath));
+//            System.out.println(templatePath);
+//            List<String> allLines = Files.readAllLines(Paths.get(templatePath));
+            List<String> allLines = Files.readAllLines(Paths.get(csvContext.getTemplateFilePath()));
             template = String.join("<br/>", allLines);
         } catch (Exception e) {
             System.out.println("Exception while reading template: " + e.getMessage());
@@ -94,5 +112,29 @@ public class GetEmailFromTemplate {
         setAuthor(contents[HeaderIndex.AUTHOR.getPosition()]);
         setEmail(contents[HeaderIndex.EMAIL.getPosition()]);
         return process();
+    }
+
+    public void setHeaderIndices(String[] contents) {
+        setTitle(contents[HeaderIndex.TITLE.getPosition()]);
+        setAuthor(contents[HeaderIndex.AUTHOR.getPosition()]);
+        setEmail(contents[HeaderIndex.EMAIL.getPosition()]);
+    }
+    public String generateSubject() {
+        String subject = csvContext.getSubject();
+        String shortTitle = "";
+        String[] titleWords = getTitle().split(" ");
+        if (subject.indexOf("<TITLE>") == -1)
+            return subject;
+        int i = 0;
+        while (i<4) {
+            if (i >= titleWords.length) {
+                break;
+            }
+            shortTitle = shortTitle + " " + titleWords[i];
+            i++;
+        }
+        subject = subject.replace("<TITLE>", shortTitle);
+        subject = subject + "\"";
+        return subject;
     }
 }

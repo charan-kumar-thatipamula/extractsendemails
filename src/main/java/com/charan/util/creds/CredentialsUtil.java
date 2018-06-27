@@ -40,6 +40,11 @@ public class CredentialsUtil {
    }
     public void setDefaultCreds() {
         setDefaultEmail("editor.jcrm@clinicalstudiesjournal.com");
-        addEmailCreds(getDefaultEmail(), "test123!@#");
+        setDefaultPassword("test123!@#");
+        addEmailCreds(getDefaultEmail(), getDefaultPassword());
+    }
+
+    public String getPassword(String email) {
+        return emailCreds.get(email);
     }
 }

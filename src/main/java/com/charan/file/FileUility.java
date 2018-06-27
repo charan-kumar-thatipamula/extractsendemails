@@ -17,11 +17,31 @@ public class FileUility {
     }
 
     public void writeOutputFile(String contents) {
+        writeOutputFile(contents, false);
+//        BufferedWriter writer = null;
+//        try {
+//            String outputFileName = getOutputFileName();
+////            System.out.println(outputFileName);
+//            writer = new BufferedWriter(new FileWriter(outputFileName));
+//            writer.write(contents);
+//        } catch (IOException e) {
+//            System.out.println("Error in writing output file");
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                writer.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+    }
+
+    public void writeOutputFile(String contents, boolean append) {
         BufferedWriter writer = null;
         try {
             String outputFileName = getOutputFileName();
-            System.out.println(outputFileName);
-            writer = new BufferedWriter(new FileWriter(outputFileName));
+//            System.out.println(outputFileName);
+            writer = new BufferedWriter(new FileWriter(outputFileName, append));
             writer.write(contents);
         } catch (IOException e) {
             System.out.println("Error in writing output file");

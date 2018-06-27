@@ -15,6 +15,7 @@ public class UrlContext {
         } else if (contents.length == 1) {
             url = contents[0];
             globalContext.addUrlEmailMap(url, credentialsUtil.getDefaultEmail());
+            initSentMailCountHandler(credentialsUtil.getDefaultEmail());
             startQueueProcessorForEmail(credentialsUtil.getDefaultEmail());
         } else if (contents.length ==2) {
             throw new Exception("Please enter both email and password OR just enter URL to use default email password");
@@ -22,6 +23,7 @@ public class UrlContext {
             url = contents[0];
             // TODO: validate contents[1] is email or not
             credentialsUtil.addEmailCreds(contents[1], contents[2]);
+            initSentMailCountHandler(credentialsUtil.getDefaultEmail());
             startQueueProcessorForEmail(contents[1]);
         } else {
             throw new Exception("More than 3 inputs given; aborting this line");
@@ -40,5 +42,12 @@ public class UrlContext {
         Thread thread = new Thread(processEmailQueue);
         thread.start();
 //        thread.
+    }
+
+    private void initSentMailCountHandler(String email) {
+        if (email == null) {
+            return;
+        }
+        globalContext.initSentMailCountHandler(email);
     }
 }

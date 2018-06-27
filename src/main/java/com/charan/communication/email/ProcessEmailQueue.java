@@ -18,8 +18,8 @@ public class ProcessEmailQueue implements Runnable{
     int emailCount;
     int timeInMinutes;
     SentMailCountHandler sentMailCountHandler;
-    public ProcessEmailQueue() {}
-    ProcessEmailQueue(BlockingQueue<Email> emailQueue) {
+//    public ProcessEmailQueue() {}
+    public ProcessEmailQueue() {
         this.emailQueue = emailQueue;
         this.emailCount = GlobalContext.getGlobalContext().getEmailCount();
         this.timeInMinutes = GlobalContext.getGlobalContext().getWaitTimeBetweenEmails();
@@ -33,14 +33,14 @@ public class ProcessEmailQueue implements Runnable{
             Email email = null;
             long timeInMinutes = DateUtil.getTimeInMinutes();
             try {
-                if (sentMailCountHandler.countReached(timeInMinutes)) {
-                    Thread.sleep(timeInMinutes * 60 * 1000);
+                if (sentMailCountHandler.sentMailsLimitReached()) {
+                    Thread.sleep(this.timeInMinutes * 60 * 1000);
                 }
                 email = emailQueue.poll(5, TimeUnit.MINUTES);
                 Runnable worker = new EmailSendService();
                 ((EmailSendService) worker).setEm(email);
                 executor.execute(worker);
-                sentMailCountHandler.updateCount(timeInMinutes);
+                sentMailCountHandler.updateSentMailCount();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
