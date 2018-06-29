@@ -32,9 +32,9 @@ public class UminHandler extends AbstractWebsiteHandler {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         int i=1;
 //        boolean morePagesPresent = true;
-        while (i <= pageCount) {
-            url = url.substring(0, url.lastIndexOf("page="));
-            url = url + "page=" + i;
+//        while (i <= pageCount) {
+//            url = url.substring(0, url.lastIndexOf("page="));
+//            url = url + "page=" + i;
             System.out.println("url: " + url);
             Runnable uminWorker = new UminWorker(journalUrls, url);
             executorService.execute(uminWorker);
@@ -42,7 +42,7 @@ public class UminHandler extends AbstractWebsiteHandler {
 //            uminWorker.processSinglePage();
 //            morePagesPresent = processSinglePage(journalUrls, url);
             i = i + 1;
-        }
+//        }
 
         executorService.shutdown();
         while (!executorService.isTerminated()) {

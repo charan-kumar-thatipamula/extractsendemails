@@ -9,6 +9,7 @@ public class UminExtractJournalMetadata implements Runnable{
     List<String> finalData;
     public String getJournalMetadata() {
         String journalMetadata = "";
+        String secondMetadata = "";
         try {
             SendRequest sReq = new SendRequest();
             String response = sReq.sendGet(journalUrl);
@@ -25,7 +26,7 @@ public class UminExtractJournalMetadata implements Runnable{
                 if (secondAuthorEmail != null &&
                         secondAuthorEmail.length() > 0 &&
                         !firstAuthorEmail.equals(secondAuthorEmail)) {
-                    journalMetadata = journalMetadata + "\n" + secondAuthorName + "," + secondAuthorEmail + "," + title;
+                    secondMetadata = secondMetadata + secondAuthorName + "," + secondAuthorEmail + "," + title;
                 }
             }
         } catch (Exception e) {
@@ -34,6 +35,9 @@ public class UminExtractJournalMetadata implements Runnable{
         System.out.println(journalMetadata);
         synchronized (finalData) {
             finalData.add(journalMetadata);
+            if (secondMetadata != null && secondMetadata.length() > 0) {
+                finalData.add(secondMetadata);
+            }
         }
         return journalMetadata;
     }
