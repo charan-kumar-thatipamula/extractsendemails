@@ -126,7 +126,7 @@ public class GetEmailFromTemplate {
         if (subject.indexOf("<TITLE>") == -1)
             return subject;
         int i = 0;
-        while (i<4) {
+        while (i<8) {
             if (i >= titleWords.length) {
                 break;
             }
