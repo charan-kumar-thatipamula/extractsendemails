@@ -90,6 +90,7 @@ public class TriggerSendEmails implements Runnable{
 //            templatePath = Paths.get("emailtemplate.txt").toAbsolutePath().toString();
 
             Email email = getEmailtoSend(contents);
+            globalContext.initSentMailCountHandler(email.getFrom());
             EmailUtil emailUtil = new EmailUtil();
             if (emailUtil.shouldIgnoreEmail(email)) {
                 System.out.println("***** Ignoring email: " + email.getTo()[0] + "********");

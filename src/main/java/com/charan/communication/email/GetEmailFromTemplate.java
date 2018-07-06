@@ -5,6 +5,7 @@ import com.charan.global.CSVContext;
 import com.charan.global.GlobalContext;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -93,7 +94,8 @@ public class GetEmailFromTemplate {
 //            template = new String(stream);
 //            System.out.println(templatePath);
 //            List<String> allLines = Files.readAllLines(Paths.get(templatePath));
-            List<String> allLines = Files.readAllLines(Paths.get(csvContext.getTemplateFilePath()));
+            Path path = Paths.get(csvContext.getTemplateFilePath());
+            List<String> allLines = Files.readAllLines(path);
             template = String.join("<br/>", allLines);
         } catch (Exception e) {
             System.out.println("Exception while reading template: " + e.getMessage());

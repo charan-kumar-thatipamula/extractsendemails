@@ -34,7 +34,9 @@ public class UminExtractJournalMetadata implements Runnable{
         }
         System.out.println(journalMetadata);
         synchronized (finalData) {
-            finalData.add(journalMetadata);
+            if (journalMetadata != null && journalMetadata.length() > 0) {
+                finalData.add(journalMetadata);
+            }
             if (secondMetadata != null && secondMetadata.length() > 0) {
                 finalData.add(secondMetadata);
             }
@@ -82,7 +84,8 @@ public class UminExtractJournalMetadata implements Runnable{
         tResponse = tResponse.substring(sInd, tResponse.length());
         int eInd = tResponse.indexOf("</");
         String value = tResponse.substring(0, eInd);
-        System.out.println(value);
+//        System.out.println(value);
+        value = value.replaceAll(",", "");
         return value;
     }
 
