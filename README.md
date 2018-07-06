@@ -22,3 +22,5 @@ Enter URL to extract journal details or Press 'Enter'
 http://journals.plos.org/plosone/dynamicSearch?resultsPerPage=60&q=author_affiliate%3A%22genetics+%22&sortOrder=DATE_NEWEST_FIRST&page=1  
 Enter URL to extract journal details or Press 'Enter'  
 https://www.sciencedirect.com/search/advanced?qs=cancer&date=2018&show=25&sortBy=relevance  
+Enter URL to extract journal details or Press 'Enter'  
+https://upload.umin.ac.jp/cgi-open-bin/ctr_e/index.cgi?sort=03&freeword=cancer&isicdr=1&page=1
