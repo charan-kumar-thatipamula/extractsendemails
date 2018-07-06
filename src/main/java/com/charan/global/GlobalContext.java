@@ -11,7 +11,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
 public class GlobalContext {
-    private int emailCount = 100;
+    private int emailCount = 50;
     private int waitTimeBetweenEmails = 60;
     private TimeUnit timeUnit = TimeUnit.MINUTES;
     private volatile static GlobalContext config;

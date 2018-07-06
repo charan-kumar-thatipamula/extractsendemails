@@ -12,6 +12,16 @@ public class ReadCSVInput {
     private GlobalContext globalContext = GlobalContext.getGlobalContext();
     public void readInput() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter time gap between emails (in minutes):");
+        int time = scanner.nextInt();
+        if (time > 0) {
+            globalContext.setWaitTimeBetweenEmails(time);
+        }
+        System.out.println("Number of emails to send within " + time + " minutes?");
+        int emailCount = scanner.nextInt();
+        if (emailCount > 0) {
+            globalContext.setEmailCount(emailCount);
+        }
         System.out.println("Enter CSV file path that has email ids that should be ignored; If no such file press 'Enter'");
         String fileOfEmailsToIgnore = scanner.nextLine();
         while (true) {

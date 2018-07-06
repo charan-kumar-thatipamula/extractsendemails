@@ -10,7 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 public class EmailUtil {
     public boolean shouldIgnoreEmail(Email email) {
-        if (email == null)
+        if (email == null ||
+                email.getTo() == null ||
+                email.getTo().length == 0 ||
+                email.getTo()[0] == null ||
+                email.getTo()[0].length() == 0)
             return true;
         String[] sendToArray = email.getTo();
         if (sendToArray == null || sendToArray.length <= 0)
@@ -39,7 +43,7 @@ public class EmailUtil {
                 } else if (GlobalContext.getGlobalContext().getTimeUnit() == TimeUnit.SECONDS) {
                     waitTime = waitTime * 1000;
                 }
-                System.out.println("Sent mail count reached. Going to sleep");
+                System.out.println("Sent mail count reached. Going to sleep for " + GlobalContext.getGlobalContext().getWaitTimeBetweenEmails() + " " + GlobalContext.getGlobalContext().getTimeUnit());
                 Thread.sleep(waitTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();

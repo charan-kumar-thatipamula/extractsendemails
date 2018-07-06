@@ -93,7 +93,7 @@ public class TriggerApp {
 //		System.out.println(year + " " + month + " " + day);
 		if (year > 2018)
 			return true;
-		if (month > 6)
+		if (month > 7)
 			return true;
 		return false;
 	}
