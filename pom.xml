@@ -16,6 +16,11 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <manifest>
+			            <addClasspath>true</addClasspath>
+			            <classpathPrefix>target/</classpathPrefix>
+			            <mainClass>com.charan.TriggerApp</mainClass>
+	                </manifest>
                 </configuration>
             </plugin>
         </plugins>

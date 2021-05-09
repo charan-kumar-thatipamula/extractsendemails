@@ -24,3 +24,5 @@ Enter URL to extract journal details or Press 'Enter'
 https://www.sciencedirect.com/search/advanced?qs=cancer&date=2018&show=25&sortBy=relevance  
 Enter URL to extract journal details or Press 'Enter'  
 https://upload.umin.ac.jp/cgi-open-bin/ctr_e/index.cgi?sort=03&freeword=cancer&isicdr=1&page=1
+Enter URL to extract journal details or Press 'Enter'  
+https://rctportal.niph.go.jp/en/result?q=cancer&t=chiken&l=50&s=0
