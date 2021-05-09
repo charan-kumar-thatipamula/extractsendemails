@@ -1,6 +1,7 @@
 package com.charan.websites;
 
 import com.charan.websites.journalplos.JournalPlosHandler;
+import com.charan.websites.rctportal.RctPortalHandler;
 import com.charan.websites.sciencedirect.ScienceDirectHandler;
 import com.charan.websites.umin.UminHandler;
 
@@ -12,6 +13,8 @@ public class WebsiteHandlerFactory {
 			return new ScienceDirectHandler(url);
 		} else if (url.indexOf("umin") != -1) {
 			return new UminHandler(url);
+		} else if (url.indexOf("rctportal") != -1) {
+			return new RctPortalHandler(url);
 		}
 		return null;
 	}
