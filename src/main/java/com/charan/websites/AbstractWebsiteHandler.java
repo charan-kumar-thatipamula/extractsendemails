@@ -11,7 +11,7 @@ import java.util.List;
 
 public abstract class AbstractWebsiteHandler {
 
-	String url;
+	protected String url;
 
 	public void handleRequest() {
 		List<String> journalUrls = extractJournalUrls(getUrl());
