@@ -91,7 +91,7 @@ public class TriggerApp {
 		int month = cal.get(Calendar.MONTH);      // 0 to 11
 		int day = cal.get(Calendar.DAY_OF_MONTH);
 //		System.out.println(year + " " + month + " " + day);
-		if (year > 2018)
+		if (year > 2021)
 			return true;
 		if (month > 10)
 			return true;

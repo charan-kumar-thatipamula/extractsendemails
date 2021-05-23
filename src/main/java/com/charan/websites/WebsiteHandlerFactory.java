@@ -4,6 +4,7 @@ import com.charan.websites.journalplos.JournalPlosHandler;
 import com.charan.websites.rctportal.RctPortalHandler;
 import com.charan.websites.sciencedirect.ScienceDirectHandler;
 import com.charan.websites.umin.UminHandler;
+import com.charan.websites.wiley.WileyWebsiteHandler;
 
 public class WebsiteHandlerFactory {
 	public static AbstractWebsiteHandler getWebsiteHandler(String url) {
@@ -15,6 +16,8 @@ public class WebsiteHandlerFactory {
 			return new UminHandler(url);
 		} else if (url.indexOf("rctportal") != -1) {
 			return new RctPortalHandler(url);
+		} else if (url.indexOf("wiley") != -1) {
+			return new WileyWebsiteHandler(url);
 		}
 		return null;
 	}
