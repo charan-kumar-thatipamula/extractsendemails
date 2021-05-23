@@ -82,7 +82,6 @@ public class WileyWebsiteHandler extends ReadPagesWebsiteHandler{
 			return null;
 		}
 		remainingPage = remainingPage.substring(0, eInd);
-//		int tempSInd = remainingPage.indexOf(Constants.WileyWebsiteJournalPageKW2_0);
 		sInd = remainingPage.indexOf(Constants.WileyWebsiteJournalPageKW2_1);
 		if (sInd == -1) {
 			sInd = remainingPage.indexOf(Constants.WileyWebsiteJournalPageKW2_4);
@@ -97,29 +96,6 @@ public class WileyWebsiteHandler extends ReadPagesWebsiteHandler{
 			return null;
 		}
 		return remainingPage.substring(sInd, eInd).replaceAll(":", "").trim();
-//		if (tempSInd == -1 || tempEInd == -1) {
-//			return null;
-//		}
-//		remainingPage.substring(tempSInd, tempEInd).replaceAll(":", "").trim();
-//		sInd = remainingPage.indexOf(Constants.WileyWebsiteJournalPageKW2_0);
-//		if (sInd == -1) {
-//            // Handle below case:
-//			// <p>Correspondence to/Adresse de correspondance: Catherine E. Slavik, School of Geography and Earth Sciences, General Sciences Building, McMaster University, 1280 Main Street West, Hamilton, ON L8S 4K1. Email/Courriel: <a class="corr-email" title="Link to email address" href="mailto:slavikc@mcmaster.ca"><span>slavikc@mcmaster.ca</span></a></p><a class="moreInfoLink" href="/action/doSearch?ContribAuthorStored=Slavik%2C+Catherine+E">Search for more papers by this author</a></div></span><span class="accordion-tabbed__tab-mobile  accordion__closed"><a href="/action/doSearch?ContribAuthorStored=Yiannakoulias%2C+Niko" class="author-name accordion-tabbed__control" data-id="am2" data-db-target-for="am2" aria-controls="am2" aria-haspopup="true" id="am2_Ctrl" role="button"><span>Niko Yiannakoulias</span><i aria-hidden="true" class="icon-section_arrow_d"></i></a><span class="comma-separator">, </span><div class="author-info accordion-tabbed__content" data-db-target-of="am2" aria-labelledby="am2_Ctrl" role="region" id="am2">
-//			sInd = remainingPage.indexOf(Constants.WileyWebsiteJournalPageKW2_1);
-//			if (sInd == -1) {
-//				return null;
-//			}
-//			sInd += Constants.WileyWebsiteJournalPageKW2_1.length();
-//		} else {
-//			sInd += Constants.WileyWebsiteJournalPageKW2_0.length();			
-//		}
-//		int eInd = remainingPage.indexOf(",");
-//		
-//		if (eInd == -1) {
-//			return null;
-//		}
-//		
-//		return remainingPage.substring(sInd, eInd).replaceAll(":", "").trim();
 	}
 
 	private String getEmail(String journalPageData) {		
