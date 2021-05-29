@@ -28,3 +28,5 @@ Enter URL to extract journal details or Press 'Enter'
 https://rctportal.niph.go.jp/en/result?q=cancer&t=chiken&l=50&s=0
 Enter URL to extract journal details or Press 'Enter'
 https://onlinelibrary.wiley.com/action/doSearch?AllField=cancer&pageSize=20&startPage=0
+Enter URL to extract journal details or Press 'Enter'
+https://www.degruyter.com/search?query=cancer&startItem=0&pageSize=10&sortBy=relevance

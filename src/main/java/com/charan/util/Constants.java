@@ -1,7 +1,10 @@
 package com.charan.util;
 
 public class Constants {
-	
+
+	/**
+	 * Wiley Website
+	 */
 	public static final String WileyWebsiteSearchTermQueryParam = "AllField=";
 	public static final String WileyWebsiteJournalPageTemplate = "https://onlinelibrary.wiley.com/doi/%s";
 	public static final String WileyWebsiteJournalListPageKeyword1 = "Select article for bulk download or export:";
@@ -16,4 +19,10 @@ public class Constants {
 	public static final String WileyWebsiteJournalPageKW3 = "mailto:";
 	public static final String WileyWebsiteJournalPageTitleKeyword = "\"citation_title\" content=\"";
 	public static final String WileyWebsiteJournalPageKW2_4 = "<p>";
+	
+	/**
+	 * Degruyter Website
+	 */
+	public static final String DegruyterWebsiteJournalPageTemplate = "https://www.degruyter.com/%s";
+	public static final String DegruyterSearchTermQueryParam = "query=";
 }
