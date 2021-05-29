@@ -60,9 +60,9 @@ public abstract class ReadPagesWebsiteHandler extends AbstractWebsiteHandler {
 					String journalPageData = WebsiteUtil.readWebpage(journalUrl);
 		            List<String> authorEmailTitles = extractJournalContents(journalPageData);
 		            if (authorEmailTitles == null || authorEmailTitles.size() == 0) {
-			            System.out.println("	NO RESULTS FOUND");		            	
+			            //System.out.println("	NO RESULTS FOUND");		            	
 		            } else {
-			            System.out.println("	" + String.join("; ", authorEmailTitles));
+			            //System.out.println("	" + String.join("; ", authorEmailTitles));
 		            }
 		            return authorEmailTitles;
 				} catch (Exception e) {

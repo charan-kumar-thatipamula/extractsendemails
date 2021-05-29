@@ -1,5 +1,6 @@
 package com.charan.websites;
 
+import com.charan.websites.degruyter.DegruyterWebsiteHandler;
 import com.charan.websites.journalplos.JournalPlosHandler;
 import com.charan.websites.rctportal.RctPortalHandler;
 import com.charan.websites.sciencedirect.ScienceDirectHandler;
@@ -18,6 +19,8 @@ public class WebsiteHandlerFactory {
 			return new RctPortalHandler(url);
 		} else if (url.indexOf("wiley") != -1) {
 			return new WileyWebsiteHandler(url);
+		} else if (url.indexOf("degruyter") != -1) {
+			return new DegruyterWebsiteHandler(url);
 		}
 		return null;
 	}
